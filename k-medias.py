@@ -58,9 +58,10 @@ lista_ponto = []
 lista_centroide = []
 ncluster = 0
 nrep = 0
+nome_arq = 'monkey'
 
 #Lendo cada linha do arquivo e inserindo os pontos na lista de pontos
-arq = open('datasets/c2ds1-2sp.txt', 'r')
+arq = open('datasets/' + nome_arq + '.txt', 'r')
 arq.readline()
 
 for line in arq:
@@ -104,6 +105,12 @@ for i in range(0, nrep):
         
         lista_centroide[menor_centroide].inserePonto(j)
         j.mudarCentroide(lista_centroide[menor_centroide].nome)
+
+    if i == nrep-1:
+        with open(nome_arq + ".txt-k-means-k" + str(ncluster) + ".clu", "w+") as out:
+            for i, cluster in zip(range(ncluster), lista_centroide):
+                for element in cluster.pontos:
+                    out.write(element.nome + '\t' + str(i) + '\n')
 
     # Loop que re-calcula os centróides
     m = iter(lista_centroide)
