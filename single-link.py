@@ -45,6 +45,8 @@ for i in range(n):
         distances[i][j] = math.inf if i == j else distance(values[i], values[j])
         if distances[i][j] < distances[i][min_distances[i]]:
             min_distances[i] = j
+            
+print("Distâncias iniciais calculadas")
 
 for i in range(n - kMin):
     clusterA = 0
@@ -75,8 +77,13 @@ for i in range(n - kMin):
 
     clustersN = n - i - 1
 
+    print("k =", clustersN)
+
     if clustersN <= kMax:
+        result = []
+        for i, cluster in zip(range(clustersN), clusters.values()):
+            for element in flatten(cluster):
+                result.append((element, i))
         with open(dataset + "-singleLink-k" + str(clustersN) + ".clu", "w+") as out:
-            for i, cluster in zip(range(clustersN), clusters.values()):
-                for element in flatten(cluster):
-                    out.write(element + '\t' + str(i) + '\n')
+            for label, cluster in sorted(sorted(result, key=lambda x:x[0]), key=lambda x: (len(x[0]), x[0])):
+                out.write(label + '\t' + str(cluster) + '\n')
