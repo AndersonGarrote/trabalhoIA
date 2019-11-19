@@ -1,7 +1,6 @@
 import sys
 import csv
 import math
-import json
 import collections.abc
 
 def distance(a, b):
