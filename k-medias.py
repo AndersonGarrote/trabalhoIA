@@ -108,9 +108,8 @@ for i in range(0, nrep):
 
     if i == nrep-1:
         with open(nome_arq + ".txt-k-means-k" + str(ncluster) + ".clu", "w+") as out:
-            for i, cluster in zip(range(ncluster), lista_centroide):
-                for element in cluster.pontos:
-                    out.write(element.nome + '\t' + str(i) + '\n')
+            for i in lista_ponto:
+                out.write(i.nome + '\t' + str(i.centroide) + '\n')
 
     # Loop que re-calcula os centróides
     m = iter(lista_centroide)
