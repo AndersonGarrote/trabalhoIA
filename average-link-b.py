@@ -28,16 +28,6 @@ class Cluster:
         self.uuid = uuid.uuid1()
         self.points = points
 
-    # def distance_to(self, cluster):
-
-    #     distances = []
-
-    #     for x in self.points:
-    #         for y in cluster.points:
-    #             distances.append(x.distance_to(y))
-
-    #     return min(distances)
-
     def distance_to(self, cluster):
         lenA = len(self.points)
         lenB = len(cluster.points)
@@ -61,6 +51,9 @@ class Cluster:
 
     def __len__(self):
         return len(self.points)
+
+    def __iter__(self):
+        return iter(self.points)
 
 dataset = sys.argv[1]
 kMin = int(sys.argv[2])
@@ -106,6 +99,11 @@ while len(clusters) > 1:
         S.append(D)
 
     if len(clusters) <= kMax:
-        print("K =", len(clusters))
-        for cluster in clusters:
-            print(len(cluster))
+        result = []
+        for i in range(len(clusters)):
+            for point in clusters[i]:
+                result.append((point.label, i))
+
+        with open(dataset + "-averageLink-k" + str(len(clusters)) + ".clu", "w+") as out:
+            for label, cluster in sorted(sorted(result, key=lambda x:x[0]), key=lambda x: (len(x[0]), x[0])):
+                out.write(label + '\t' + str(cluster) + '\n')
