@@ -8,7 +8,7 @@ cluster_algorithms = ['k-means', 'singleLink', 'averageLink']
 
 for data_set_name in data_sets:
     
-    arq_txt = open('datasets/' + data_set_name + '.txt', 'r')
+    arq_txt = open('dataset_plot/' + data_set_name + '.txt', 'r')
     
     #Plotando os clusters Encontrados
     for algorithm_name in cluster_algorithms:
@@ -22,7 +22,7 @@ for data_set_name in data_sets:
             filename = data_set_name +'.txt-' + algorithm_name + '-k' + str(k);
             
             arq_txt.seek(0)
-            arq_clu = open('datasets/'+ filename + '.clu', 'r')
+            arq_clu = open('dataset_plot/'+ filename + '.clu', 'r')
 
             ponto_cluster = {}
             x_array = []
@@ -55,7 +55,7 @@ for data_set_name in data_sets:
 
     #Plotando o cluster Real
     arq_txt.seek(0)
-    arq_clu = open('datasets/'+ data_set_name + 'Real.clu', 'r')
+    arq_clu = open('dataset_plot/'+ data_set_name + 'Real.clu', 'r')
 
     ponto_cluster = {}
     x_array = []
